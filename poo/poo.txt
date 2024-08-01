@@ -1,0 +1,9 @@
+Exercice :
+
+créons :
+- une classe appelée personne (personne.php)  qui contiendra comme attribut (propriété) en private : nom, prenom et age 
+- une classe produit (produit.php) qui contiendra comme attribut en private : nom, couleur, prix 
+- un fichier achat.php qui contiendra les informations comme suit :
+   * Robert a acheté 3 pantalons de couleur bleue à 120 euros 
+   * Maxime a acheté 5 chemises de couleur rouge à 180 euros 
+   * Alain a acheté 2 paires de  chaussettes de couleur noire à 30 euros 

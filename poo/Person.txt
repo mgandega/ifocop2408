@@ -1,0 +1,88 @@
+<?php
+
+class Person
+{
+    // la visibilité public permet d'accéder à la propriété à l'intérieur ou à l'extérieur de la class
+    // la visibilité private permet d'accéder à la propriété qu'à l'intérieur de la class (pas à l'exterieur çàd en dehors de la class), pour pouvoir accéder à une propriété private à l'exterieur de la class on est obligé de passer par un setter (pour modifier) ou un getter (pour récuperer)
+
+    // ex: $prenom est une propriété
+    // les 3 visiblités : public, private et protected
+    private $prenom = '';
+    public $nom = '';
+    public $age = '';
+
+    // avec le constructeur on hydrate l'objet avec les valeurs passées en paramètre
+    public function __construct(string $nom, int $age)
+    {
+        $this->nom = $nom;
+        $this->age = $age;
+    }
+
+    public function presentation()
+    {
+        // $this fait référence à l'objet en cours (l'objet qui a appelé la methode presentation)
+        // si on appelle la methode presentation à partir de l'objet $pers1, le $this représente $pers1 .
+        echo "je m'appelle $this->nom et j'ai $this->age ans";
+    }
+
+    // setters pour la modification ou l'insertion des données
+    // getters pour la récupération des données
+
+    public function setPrenom(string $prenom)
+    {
+        if (strlen($prenom >= 8) and strlen($prenom) <= 15) {
+            $this->prenom = $prenom;
+        } else {
+            // throw new \Exception('le prenom doit être entre 8 et 15 caractères');
+            echo 'le prenom doit être entre 8 et 15 caractères';
+        }
+        return $this;
+    }
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+
+
+
+
+    /**
+     * Get the value of nom
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set the value of nom
+     *
+     * @return  self
+     */
+    public function setNom($nom): self
+    {
+        $this->nom = $nom;
+
+        return $this; // permet de chainer des méthodes
+    }
+
+    /**
+     * Get the value of age
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    /**
+     * Set the value of age
+     *
+     * @return  self
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+}

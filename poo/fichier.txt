@@ -1,0 +1,37 @@
+<?php 
+include('Person.php');
+
+$pers1 = new Person('macron', 48); // on dit qu'on instancie la class Person, $pers1 est l'instance de Person
+echo '<pre>';
+print_r($pers1);
+echo '<pre>';
+// $pers1->prenom = 'patrick';
+// $pers1->nom = 'macron';
+// $pers1->age = 48;
+// echo $pers1->nom ; // on ne met pas de $ devant prenom (une propriété)
+$pers2 = new Person('depardieu', 57);
+// $pers2->nom = 'depardieu';
+// $pers2->age = 57;
+
+$pers3 = new Person('duhammel', 62);
+// $pers3->nom = 'duhammel';
+// $pers3->age = 62;
+
+$pers3->presentation();
+echo '<br>';
+
+///////////// setters / getters
+
+// grace au setters on peut modifier / inserrer des données à l'extérieur de la class
+$pers1->setPrenom('clement')
+    ->setNom('macron')
+    ->setAge(48);
+
+// grace au getters on peut récupérer des données à l'extérieur de la class
+echo $pers1->getPrenom() . '<br>';
+echo $pers1->getNom() . '<br>';
+echo $pers1->getAge() . '<br>';
+
+// $pers2 = new Person();
+
+// les constructeurs
