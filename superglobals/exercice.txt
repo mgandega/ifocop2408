@@ -1,0 +1,4 @@
+recuperons les données relatives au sport envoyées par l'internaute et affichons les .
+
+ps: d'abord on doit rajouter quelque chose sur le formulaire pour qu'il puisse retourner un tableau qui contiendra l'ensemble des sports .
+- une fois le tableau retourné, on bouclera pour recupérer le ou les sports choisis
