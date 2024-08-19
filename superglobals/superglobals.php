@@ -23,9 +23,9 @@
 // echo $_SERVER['DOCUMENT_ROOT'];
 
 // la superglobal $_GET
-// permet de transmettre et de récuperer des informations de page en page, ces informations seront afficher sur l'url 
+// permet de transmettre et de récuperer des informations de page en page, ces informations seront affichées sur l'url 
 // le point d'interrogation (?) sans rien veut dire qu'on veut afficher ce qui suit (le point d'interrogation) sur la même page
-// echo "<a href='page1.php?prenom=jean'>prenom</a>";
+// echo "?prenom=jean'>prenom</a>"; // => echo "<a href='superglobals.php?prenom=jean'>prenom</a>";
 // echo "<a href='?prenom=jean&nom=macron'>prenom</a> ";
 // echo "<br>";
 // si l'attribut (clé) prenom est défini sur l'url, affiches le moi
@@ -42,50 +42,64 @@
 // }else{
 //     echo "la clé n'est pas définie";
 // }
+// echo '<pre>';
+// print_r($_GET);
+// echo '<pre>';
+
+
 
 // la superglobal $_POST
 
-    echo '<pre>';
-    print_r($_GET);
-    echo '<pre>';
+echo '<pre>';
+print_r($_POST);
+echo '</pre>';
 // si on a posté des données
 if (!empty($_POST)) {
-    echo '<pre>';
-    print_r($_POST);
-    echo '<pre>';
-    echo $_POST['age'].'<br>';
-    echo $_POST['fruit'].'<br>';
-    echo $_POST['genre'];
-    
-}else{
+    // //     echo '<pre>';
+    // //     print_r($_POST);
+    // //     echo '<pre>';
+    echo $_POST['prenom'] . '<br>';
+    echo $_POST['nom'] . '<br>';
+    echo $_POST['age'] . '<br>';
+    echo $_POST['date'] . '<br>';
+    echo $_POST['fruit'] . '<br>';
+    if (count($_POST['sport']) >= 1) {
+        foreach ($_POST['sport'] as $valeur) {
+            echo $valeur . '<br>';
+        }
+    }
+} else {
     echo 'aucune donnée n\'est envoyé';
 }
+
 ?>
 
 <!-- si action ne contient pas de valeur donc action="" ou contient un diese donc action="#" (#) cela veut dire qu'on execute les données du formulaire sur la même page -->
+<!-- si la methode n'est pas précisée, c'est la methode get qui sera la method par défaut (les infos s'afficheront sur l'url) -->
 <form action="" method="post">
     <input type="text" name="prenom" placeholder="votre prenom svp ?"><br>
     <input type="text" name="nom" placeholder="votre nom svp ?"><br>
     <input type="number" name="age" placeholder="votre age svp ?"><br>
-    <label> votre choix :</label><br>
+    <input type="date" name="date" placeholder="votre age svp ?"><br>
+    <!-- <label> votre choix :</label><br> -->
     <select name='fruit'>
         <option value="banane">banane</option>
         <option value="orange">orange</option>
         <option value="mandarine">mandarine</option>
     </select>
-    
+
     <label> genre :</label><br>
     femme : <input type="radio" name="genre" value="femme" placeholder="votre sexe svp ?"><br>
     homme : <input type="radio" name="genre" value="homme" placeholder="votre sexe svp ?"><br>
-    
-    <!-- textarea : <input type="textarea" name="message" placeholder="un message svp ?"/> -->
-    <textarea name="message" placeholder="un message svp ?" cols=40 rows=10></textarea>
-    
+    autre : <input type="radio" name="genre" value="autre" placeholder="votre sexe svp ?"><br>
+
+    <!-- textarea : <input type="textarea" name="message" placeholder="un message svp ?"/>  -->
+    <textarea name="message" placeholder="un message svp ?" cols=40 rows=10></textarea><br><br>
+
     <label> sport :</label><br>
-    football : <input type="checkbox" name="sport" value="football" ><br>
-    basketball : <input type="checkbox" name="sport" value="basketball"><br>
-    handball : <input type="checkbox" name="sport" value="handball"><br>
+    football : <input type="checkbox" name="sport[]" value="football"><br>
+    basketball : <input type="checkbox" name="sport[]" value="basketball"><br>
+    handball : <input type="checkbox" name="sport[]" value="handball"><br>
 
-
-    <input type="submit" >
+    <input type="submit">
 </form>
