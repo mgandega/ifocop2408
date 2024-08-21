@@ -11,10 +11,10 @@ $duree = time() + 1*60*60*24*365;
 // setcookie('nom_cookie','contenue_cookie','duree_cookie');
 setcookie('prenom','pierre',$duree);
 // modifier un cookie
-setcookie('prenom','martin',$duree);
+setcookie('nom','macron',$duree);
 
-// recuperer d'un cookie
-echo "<br> le cookie s'appelle ".$_COOKIE['prenom'].'<br>';
+// // recuperer d'un cookie
+// echo "<br> le cookie s'appelle ".$_COOKIE['prenom'].'<br>';
 
 echo '<pre>';
     print_r($_COOKIE);

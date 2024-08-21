@@ -25,7 +25,7 @@
 // la superglobal $_GET
 // permet de transmettre et de récuperer des informations de page en page, ces informations seront affichées sur l'url 
 // le point d'interrogation (?) sans rien veut dire qu'on veut afficher ce qui suit (le point d'interrogation) sur la même page
-// echo "?prenom=jean'>prenom</a>"; // => echo "<a href='superglobals.php?prenom=jean'>prenom</a>";
+// echo "page1.php?prenom=jean'>prenom</a>"; // => echo "<a href='superglobals.php?prenom=jean'>prenom</a>";
 // echo "<a href='?prenom=jean&nom=macron'>prenom</a> ";
 // echo "<br>";
 // si l'attribut (clé) prenom est défini sur l'url, affiches le moi
@@ -103,3 +103,27 @@ if (!empty($_POST)) {
 
     <input type="submit">
 </form>
+
+<?php 
+$tab =['prenom'=>'jean','nom'=>'macron'];
+echo '<pre>';
+print_r($tab); //  affiche tous les élèments du tableau 
+echo '</pre>';
+// sur le navigateur on aura  ceci (sans les quôtes):
+Array
+(
+    [prenom] => jean 
+    [nom] => macron
+)
+
+unset($tab['prenom']); // suppression de l'élèment 'prenom'=>'jean'
+echo '<pre>';
+print_r($tab); //  affiche tous les élèments du tableau sauf le premier élèment 'prenom'=>'jean' 
+echo '</pre>';
+
+// sur le navigateur on aura ceci (sans les quôtes):
+Array
+(
+    [nom] => macron
+)
+
