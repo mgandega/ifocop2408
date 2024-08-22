@@ -77,14 +77,18 @@
 // selectionnes moi le salaire minimum des employes
 // select MIN(salaire) from employes
 
-
 // INSERTION
 // inserres moi dans la table employes ces informations : 'emmanuel','macron','m','president','2016-12-12',5400)
 // INSERT INTO employes(prenom,nom,sexe,service,date_embauche,salaire) VALUES('emmanuel','macron','m','president','2016-12-12',5400)
 
+// MODIFICATION
+// modifies moi le salaire de l'employé qui a comme id (id_employes) 991 à 6000
+// UPDATE employes SET salaire=6000 WHERE id_employes=991
 
 
-
+// SUPPRESSION
+// supprimes l'employé qui a comme id (id_employes) 991
+// DELETE FROM employes WHERE id_employes=991
 
 
 
