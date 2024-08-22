@@ -31,3 +31,53 @@
 // Afficher l'employé ayant été embauché en dernier.
 
 // select * from employes ORDER BY id_employes DESC LIMIT 1
+
+// JOINTURES 
+// select : selectionnes moi
+// nom de champ : dans le champ champ1, champ2
+// FROM : provenant de la table table1 , table2, table_jointure
+// where : où
+// id_champ1 qui se trouve dans la table_jointure
+// = 
+// id_champ1 qui se trouve dans la table table1
+
+// select abonne.prenom, livre.auteur 
+// from abonne, livre, emprunt 
+// where emprunt.id_abonne = abonne.id_abonne
+// and emprunt.id_livre = emprunt.id_livre
+// AND abonne.prenom='chloe';
+
+// select abonne.prenom, livre.auteur 
+
+//  qui a emprunté le livre 'Une Vie' sur l'année 2014 ?
+// select prenom, titre 
+// from abonne, livre, emprunt 
+// where emprunt.id_abonne = abonne.id_abonne
+// AND emprunt.id_livre = livre.id_livre
+// AND  livre.titre = 'Une vie'
+// AND date_sortie LIKE '2014%'
+
+// Afficher le nombre de livres empruntés par chaque abonné
+// select prenom , count(emprunt.id_livre) 
+// from abonne, livre, emprunt 
+// where emprunt.id_abonne = abonne.id_abonne 
+// group by abonne.prenom
+
+// Qui a emprunté Quoi ? et Quand ?
+// select abonne.prenom, livre.auteur, emprunt.date_sortie
+// from abonne, livre, emprunt 
+// where emprunt.id_abonne = abonne.id_abonne
+// and emprunt.id_livre = livre.id_livre;
+
+// 4 Afficher le prénom des abonnés avec le numéro des livres qu'ils ont emprunté
+// select abonne.prenom, livre.id_livre
+// from abonne, livre, emprunt 
+// where emprunt.id_abonne = abonne.id_abonne
+// and emprunt.id_livre = livre.id_livre;
+
+// 5 Afficher les abonnés qui n'ont pas rendu leurs livres
+// select abonne.prenom
+// from abonne, livre, emprunt 
+// where emprunt.id_abonne = abonne.id_abonne
+// and emprunt.id_livre = livre.id_livre
+// and emprunt.date_rendu IS null
