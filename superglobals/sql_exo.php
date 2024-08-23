@@ -81,3 +81,60 @@
 // where emprunt.id_abonne = abonne.id_abonne
 // and emprunt.id_livre = livre.id_livre
 // and emprunt.date_rendu IS null
+
+// jointure avec left join
+// le left join permet d'afficher toutes les informations de la table de gauche même s'il y'a pas de correspondance sur la table de droite
+// le right join permet d'afficher toutes les informations de la table de droite même s'il y'a pas de correspondance sur la table de gauche
+// le inner join permet d'afficher toutes les informations de la table de gauche qui ont une correspondance sur la table de droite
+// select abonne.prenom
+// select distinct(abonne.prenom)
+// from abonne inner join emprunt
+// on emprunt.id_abonne = abonne.id_abonne;
+
+// 1 - Afficher le nom des agences
+// select nom from agence;
+
+// 2 - Afficher le numero de l'agence orpi
+// SELECT idAgence 
+// from agence 
+// where nom = 'orpi'
+
+// 3 - Afficher le premier enregistrement de la table logement
+// select * from logement limit 1
+// select * from logement order by idLogement ASC limit 1
+
+
+// 4 - Afficher le nombre de logement (en mettant en place un alias : nombre logement)
+// select count(*) as 'nombre logement' from logement
+
+// 5 - Afficher les logements à vendre à moins de 150000 € dans l'ordre croissant des prix
+// // SELECT * 
+// FROM logement 
+// where prix < 150000 
+// and categorie = 'vente' 
+// order by prix;
+
+// 6 - Afficher le nombre de logements à la location (en mettant un alias nombre)
+// SELECT count(*) AS 'logement en location'
+// FROM logement 
+// where categorie='location';
+
+// 7 - Afficher les villes différentes recherchées par les personnes demandeuses de logement
+// SELECT distinct(ville)  FROM demande;
+
+// 8-  Quels sont les id des logements entre 20 et 30 m2
+// SELECT idLogement FROM logement where superficie BETWEEN 20 AND 30;
+
+// 9 - quel est le prix du logement le moins cher à vendre (en mettant comme alias prix minimum)
+// SELECT MIN(prix) FROM logement where categorie='vente';
+// SELECT prix FROM logement where categorie='vente' order by prix ASC LIMIT 3;
+
+// 10 - l'agence orpi souhaite diminuer les frais qu'elle applique sur le logement ayant comme id 5246 . Passer les frais de ce logement de 800 à 730 €
+// ici vous faites un update sur logement_agence et une jointure entre agence et logement
+// UPDATE logement_agence SET frais=730 where idLogement=5246 and idAgence = (select idAgence FROM agence WHERE nom='orpi')
+
+// 11 - Afficher le nombre de propriétaire dans la ville de paris (en mettant un alias: nombre)
+// SELECT COUNT(DISTINCT(lp.idPersonne)) AS 'nombre'  
+// from logement_personne lp , logement l 
+// where lp.idLogement = l.idLogement
+// and l.ville = 'paris';
