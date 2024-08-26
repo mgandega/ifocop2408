@@ -41,9 +41,11 @@ $billets = $pdo->query("SELECT * FROM billet");
 // echo "<pre>";
 // print_r($billets);
 // echo "</pre>";
+echo "<ol>";
 while($donnees = $billets->fetch(PDO::FETCH_ASSOC)){
     // echo "<pre>";
     // print_r($donnees);
     // echo "</pre>";
-    echo "<a href='commentaire.php?idBillet=$donnees[id_billet]'>".$donnees['nom_billet'].' : '.$donnees['titre']." </a>".'<br>';
+    echo "<li><a href='commentaire.php?idBillet=$donnees[id_billet]'>".$donnees['nom_billet'].' : '.$donnees['titre']." </a></li>".'<br>';
 }
+echo "</ol>";

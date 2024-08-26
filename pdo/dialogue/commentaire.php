@@ -1,6 +1,12 @@
 <?php
 $pdo = new PDO("mysql:host=localhost;dbname=dialogue_2024", "root", "root");
 echo "vos commentaires :<br><br>";
+if(isset($_GET['action']) and $_GET['action']=='medina'){
+  $resultat =  $pdo->exec("DELETE FROM commentaire WHERE id_commentaire='$_GET[id_commentaire]'");
+    if($resultat == 1){
+        echo "commentaire supprimé";
+    }
+}
 if (!empty($_POST)) {
     $pseudo = $_POST['pseudo'];
     // addslashes permet d'ajouter un antislah devant un simple ou double quôte
@@ -13,19 +19,24 @@ if (!empty($_POST)) {
     }
 }
 // si idBillet est défini sur l'url affiches moi le formulaire de commentaire  
-if (isset($_GET['idBillet'])) {
+if(isset($_GET['idBillet'])) {
     echo "<form action='' method='post'>";
     echo "<input type='text' name='pseudo' placeholder='votre pseudo'/><br><br>";
     echo "<textarea name='message' placeholder='votre message'></textarea><br><br>";
     echo "<input type='submit'/>";
     echo "</form>";
-} else {
-    echo " aucun billet à commenter";
+} 
+
+if(isset($_GET["idBillet"])){
+    
+    $commentaires  = $pdo->query("SELECT * FROM commentaire where id_billet='$_GET[idBillet]'");
+    // echo "<pre>";
+    // print_r($commentaires->fetch(PDO::FETCH_ASSOC));
+    // echo "</pre>";
+    while ($commentaire = $commentaires->fetch(PDO::FETCH_ASSOC)) {
+        echo $commentaire['pseudo'] . ' : ' . $commentaire['message'];
+        echo "<button><a href='?action=medina&idBillet=$_GET[idBillet]&id_commentaire=$commentaire[id_commentaire]'>supprimer</a> </button>";
+        echo "<br>";
+    }
 }
-
-
-$commentaires  = $pdo->query("SELECT * FROM commentaire where id_billet=$_GET[idBillet]");
-
-while ($donnees = $commentaires->fetch(PDO::FETCH_ASSOC)) {
-    echo $donnees['pseudo'] . ' : ' . $donnees['message'] . '<br>';
-}
+    
