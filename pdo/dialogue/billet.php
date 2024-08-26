@@ -7,12 +7,17 @@ $pdo = new PDO("mysql:host=localhost;dbname=dialogue_2024", "root", "root");
 <a href="?action=ajoutBillet">Ajouter un billet</a>
 <?php
 if(!empty($_POST)){
-    echo '<pre>';
-    print_r($_POST);
-    echo '<pre>';
+    // echo '<pre>';
+    // print_r($_POST);
+    // echo '<pre>';
     $nom = $_POST['nom'];
     $titre = $_POST['titre'];
-    $pdo->exec("INSERT INTO billet(nom_billet,titre) VALUES('$nom','$titre')");
+   $resultat = $pdo->exec("INSERT INTO billet(nom_billet,titre) VALUES('$nom','$titre')");
+
+   if($resultat == 1){
+    echo "<span style='background-color:green;color:white'>billet ajouté avec succès</span>";
+   }
+
 }
 // si vous trouvez une clé qui s'appelle action sur l'url
 // et que sa valeur est ajoutBillet
