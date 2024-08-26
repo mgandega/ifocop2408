@@ -5,7 +5,7 @@ if (!empty($_POST)) {
     $pseudo = $_POST['pseudo'];
     // addslashes permet d'ajouter un antislah devant un simple ou double quôte
     // $message = htmlentities(addslashes($_POST['message']));
-    $message = $_POST['message'];
+    $message = addslashes($_POST['message']);
     $resultat = $pdo->exec("INSERT INTO commentaire(id_billet,pseudo,message)VALUES('$_GET[idBillet]','$pseudo','$message')");
 
     if ($resultat == 1) {
@@ -24,7 +24,7 @@ if (isset($_GET['idBillet'])) {
 }
 
 
-$commentaires  = $pdo->query("SELECT * FROM commentaire");
+$commentaires  = $pdo->query("SELECT * FROM commentaire where id_billet=$_GET[idBillet]");
 
 while ($donnees = $commentaires->fetch(PDO::FETCH_ASSOC)) {
     echo $donnees['pseudo'] . ' : ' . $donnees['message'] . '<br>';
