@@ -6,6 +6,9 @@ $pdo = new PDO("mysql:host=localhost;dbname=dialogue_2024", "root", "root");
 ?>
 <a href="?action=ajoutBillet">Ajouter un billet</a>
 <?php
+    echo '<pre>';
+    print_r($_POST);
+    echo '<pre>';
 if(!empty($_POST)){
     // echo '<pre>';
     // print_r($_POST);
@@ -32,4 +35,15 @@ if (isset($_GET['action']) and $_GET['action'] == 'ajoutBillet') {
     //     <input type='text' /><br><br>
     //     <input type='submit' /><br><br>
     //     </form>";
+}
+
+$billets = $pdo->query("SELECT * FROM billet");
+// echo "<pre>";
+// print_r($billets);
+// echo "</pre>";
+while($donnees = $billets->fetch(PDO::FETCH_ASSOC)){
+    // echo "<pre>";
+    // print_r($donnees);
+    // echo "</pre>";
+    echo "<a href='commentaire.php?idBillet=$donnees[id_billet]'>".$donnees['nom_billet'].' : '.$donnees['titre']." </a>".'<br>';
 }
