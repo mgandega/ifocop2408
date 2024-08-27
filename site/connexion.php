@@ -3,4 +3,4 @@
 // - si oui je verifie est ce le mot de passe envoyé en post aussi correspond au mot de passe de la même personne dans la table membre
 // si tout est ok, on affiche juste "ça matche"
 
-// nb: on n'utlise pas de fetch mais plus rowCount() pour tester si cette personne existe belle et bien
+// nb: on utlise rowCount() et fetch  pour tester si cette personne existe belle et bien
