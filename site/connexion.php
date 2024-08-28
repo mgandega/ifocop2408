@@ -19,17 +19,18 @@ if(!empty($_POST)){
         $donnees = $membre->fetch(PDO::FETCH_ASSOC);
         // on verifie est ce que le mot de passe de ce membre est egal au mot de passe envoyé par le formulaire
         if($donnees['mdp'] == $_POST['mdp']){
+            $_SESSION['membre']['pseudo'] = $donnees['pseudo'];
             $_SESSION['membre']['prenom'] = $donnees['prenom'];
-            $_SESSION['membre']['nom'] = $donnees['prenom'];
+            $_SESSION['membre']['nom'] = $donnees['nom'];
             $_SESSION['membre']['civilite'] = $donnees['civilite'];
             $_SESSION['membre']['email'] = $donnees['email'];
             $_SESSION['membre']['ville'] = $donnees['ville'];
             $_SESSION['membre']['cp'] = $donnees['code_postal'];
             $_SESSION['membre']['adresse'] = $donnees['adresse'];
-            
-            echo "<pre>";
-            print_r($_SESSION);
-            echo "</pre>";
+            // echo "<pre>";
+            // print_r($_SESSION);
+            // echo "</pre>";
+            header("");
         }
     }else{
         echo "il faut vous inscrire";
