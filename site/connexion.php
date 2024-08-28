@@ -30,7 +30,7 @@ if(!empty($_POST)){
             // echo "<pre>";
             // print_r($_SESSION);
             // echo "</pre>";
-            header("");
+            header("location:profil.php");
         }
     }else{
         echo "il faut vous inscrire";
