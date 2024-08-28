@@ -14,6 +14,25 @@ if(!empty($_POST)){
 
     if($membre->rowCount() >=1){
         echo "membre déja inscrit";
+        
+        // ici, on n'a pas besoin d'utiliser un while car on veut juste recuperer une seule ligne
+        $donnees = $membre->fetch(PDO::FETCH_ASSOC);
+        // on verifie est ce que le mot de passe de ce membre est egal au mot de passe envoyé par le formulaire
+        if($donnees['mdp'] == $_POST['mdp']){
+            $_SESSION['membre']['prenom'] = $donnees['prenom'];
+            $_SESSION['membre']['nom'] = $donnees['prenom'];
+            $_SESSION['membre']['civilite'] = $donnees['civilite'];
+            $_SESSION['membre']['email'] = $donnees['email'];
+            $_SESSION['membre']['ville'] = $donnees['ville'];
+            $_SESSION['membre']['cp'] = $donnees['code_postal'];
+            $_SESSION['membre']['adresse'] = $donnees['adresse'];
+            
+            echo "<pre>";
+            print_r($_SESSION);
+            echo "</pre>";
+        }
+    }else{
+        echo "il faut vous inscrire";
     }
 }
 ?>
