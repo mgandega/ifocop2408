@@ -92,7 +92,7 @@ echo "<table>";
 echo "<tr><th>reference</th><th>categorie</th><th>titre</th><th>photo</th><th>prix</th></tr>";
 while($donnees = $produits->fetch(PDO::FETCH_ASSOC)){
     // debug($donnees);
-   echo "<tr><td>$donnees[reference]</td><td>$donnees[categorie]</td><td>$donnees[titre]</td><td><img src='$donnees[photo]' alt='' /></td><td>$donnees[prix]</td></tr>";
+   echo "<tr><td>$donnees[reference]</td><td>$donnees[categorie]</td><td>$donnees[titre]</td><td><img src='$donnees[photo]' alt='' width='70' /></td><td>$donnees[prix]</td></tr>";
 }
 echo "</table>";
 }
