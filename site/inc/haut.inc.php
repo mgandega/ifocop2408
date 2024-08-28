@@ -39,7 +39,17 @@
                     <a href="<?php echo RACINE_SITE; ?>boutique.php">Accès à la boutique</a>
                     <a href="<?php echo RACINE_SITE; ?>panier.php">Voir votre panier</a>
                 <?php
-                } else {
+                }
+                elseif(isConnectedAndAdmin()){
+                    ?>
+                    <a href="/ifocop_240719/site/admin/gestion_membre.php">gestion membre</a>
+                    <a href="/ifocop_240719/site/admin/gestion_boutique.php">gestion boutique</a>
+                    <a href="/ifocop_240719/site/admin/gestion_commande.php">gestion commande</a>
+                    <a href="<?php echo RACINE_SITE; ?>boutique.php">Accès à la boutique</a>
+                    <a href="<?php echo RACINE_SITE; ?>deconnexion.php">Deconnexion</a>
+                  <?php
+                }
+                else {
                 ?>
                     <a href="/ifocop_240719/site/inscription.php">Inscription</a>
                     <a href="/ifocop_240719/site/connexion.php">Connexion</a>

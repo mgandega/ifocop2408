@@ -20,4 +20,11 @@ function isConnected(){
         return false;
     }
 }
+function isConnectedAndAdmin(){
+    if(isset($_SESSION['membre']['statut']) and $_SESSION['membre']['statut'] == 1){
+        return true;
+    }else{
+        return false;
+    }
+}
 
