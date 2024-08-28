@@ -27,6 +27,7 @@ if(!empty($_POST)){
             $_SESSION['membre']['ville'] = $donnees['ville'];
             $_SESSION['membre']['cp'] = $donnees['code_postal'];
             $_SESSION['membre']['adresse'] = $donnees['adresse'];
+            $_SESSION['membre']['statut'] = $donnees['statut'];
             // echo "<pre>";
             // print_r($_SESSION);
             // echo "</pre>";
