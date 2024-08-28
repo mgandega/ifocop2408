@@ -3,9 +3,6 @@ include("inc/init.inc.php");
 include("inc/haut.inc.php");
 $pdo = new PDO("mysql:host=localhost;dbname=ecom_ifocop", "root", "root");
 if(!empty($_POST)){
-    // echo "<pre>";
-    // print_r($_POST);
-    // echo "</pre>";
        $pseudo =  $_POST['pseudo'];
        $mdp =  $_POST['mdp'];
        $nom =  $_POST['nom'];
