@@ -3,8 +3,8 @@ include("../inc/init.inc.php");
 include("../inc/haut.inc.php");
 
 // on récupère la photo avec $_FILES
-echo "<a href=''> Ajouter un produit </a><br><br>";
-echo "<a href=''> Afficher un produit </a><br><br>";
+echo "<a href='?action=ajouter'> Ajouter un produit </a><br><br>";
+echo "<a href='?action=afficher'> Afficher des produits </a><br><br>";
 if (!empty($_POST)) {
     if (!empty($_FILES['photo'])) {
 
@@ -49,47 +49,53 @@ $stock = $_POST['stock'];
 }
 ?>
 <!-- ne pas oublier  de mettre enctype="multipart/form-data" dans form et de mettre le type en file -->
+ <?php
+ // si tu voie action=ajouter sur l'url
+ if(isset($_GET['action']) and $_GET['action'] == "ajouter" ){
+?>
 <form action="" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="reference" /><br><br>
-
-    <label for="categorie">categorie</label>
-    <input type="text" name="categorie" /><br><br>
-
-    <label for="titre">titre</label>
-    <input type="text" name="titre" /><br><br>
-
-    <label for="description">description</label><br>
-    <textarea name="description" placeholder="description du produit"></textarea><br><br>
-
-    <label for="couleur">couleur</label>
-    <input type="text" name="couleur" /><br><br>
-
-    <label for="taille">taille</label>
-    <select name="taille">
+    <table>
+        <tr><td><input type="hidden" name="reference" /></td></tr>
+        <tr><td><label for="categorie">categorie</label></td><td><input type="text" name="categorie" /><br></td></tr>
+        <tr><td><label for="titre">titre</label></td><td><input type="text" name="titre" /></td></tr>
+        <tr><td><label for="description">description</label></td><td><textarea name="description" placeholder="description du produit"></textarea></td></tr>
+        <tr><td><label for="couleur">couleur</label></td><td><input type="text" name="couleur" /></td></tr>
+        <tr><td><label for="taille">taille</label></td><td> <select name="taille">
         <option value="x">X</option>
         <option value="xl">XL</option>
         <option value="m">M</option>
         <option value="s">S</option>
-    </select><br><br>
-
-    <label for="public">public</label>
-    <select name="public">
+    </select></td></tr>
+        <tr><td><label for="public">public</label></td><td> <select name="public">
         <option value="m">Masculin</option>
         <option value="f">Feminin</option>
         <option value="mixte">Mixte</option>
-    </select><br><br>
+    </select></td></tr>
+        <tr><td></td><td> <select name="public">
+        <option value="m">Masculin</option>
+        <option value="f">Feminin</option>
+        <option value="mixte">Mixte</option>
+    </select></td></tr>
+        <tr><td><label for="photo">photo</label></td><td> <input type="file" name="photo" /></td></tr>
+        <tr><td> <label for="prix">prix</label></td><td><input type="number" name="prix" /></td></tr>
+        <tr><td><label for="stock">stock</label></td><td><input type="number" name="stock" /></td></tr>
+        <tr><td></td><td><input type="submit" /></td></tr>
+    </table>
 
-    <label for="photo">photo</label>
-    <input type="file" name="photo" /><br><br>
-
-    <label for="prix">prix</label>
-    <input type="number" name="prix" /><br><br>
-
-    <label for="stock">stock</label>
-    <input type="number" name="stock" /><br><br>
-
-    <input type="submit" /><br><br>
 </form>
+
 <?php
+ }
+ if(isset($_GET['action']) and $_GET['action'] == "afficher"){
+   $produits = $pdo->query("SELECT * FROM produit");
+echo "<table>";
+echo "<tr><th>reference</th><th>categorie</th><th>titre</th><th>photo</th><th>prix</th></tr>";
+while($donnees = $produits->fetch(PDO::FETCH_ASSOC)){
+    // debug($donnees);
+   echo "<tr><td>$donnees[reference]</td><td>$donnees[categorie]</td><td>$donnees[titre]</td><td><img src='$donnees[photo]' alt='' /></td><td>$donnees[prix]</td></tr>";
+}
+echo "</table>";
+}
+
 include("../inc/bas.inc.php");
 ?>
