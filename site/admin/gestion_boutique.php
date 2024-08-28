@@ -6,14 +6,21 @@ include("../inc/haut.inc.php");
 
 
 if (!empty($_FILES['photo'])) {
+
     debug($_FILES);
+    // time() est appelé timestamp càd le nombre de secondes écoulé depuis le 1er janvier 1070
+    // ce nombre change chaque seconds
     $unique = time();
     // debug($unique);
+    // ici on utilise la fonction time() pour avoir un nombre unique, ainsi on évitera d'avoir deux photos de même nom
     $nom_photo = $unique . '_' . $_FILES['photo']['name'];
+    // $db represente le chemin de la photo à partir du localhost (www ou htdocs)
     $db = RACINE_SITE . 'photo/' . $nom_photo;
     // echo $db;
     // debug($_SERVER['DOCUMENT_ROOT']);
+    // $db represente le chemin de la photo à partir du localhost (www ou htdocs)
 
+    // $chemin represente le chemin de la photo à partir de la racine du document
     $chemin = $_SERVER['DOCUMENT_ROOT'] . $db;
     // echo $chemin;
     // ici on copie la photo à l'interieur du repertoire photo
