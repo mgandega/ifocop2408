@@ -68,23 +68,24 @@ if (isset($_GET['action']) and $_GET['action'] == "ajouter" || $_GET['action'] =
             </tr>
             <tr>
                 <td><label for="titre">titre</label></td>
-                <td><input type="text" name="titre" /></td>
+                <td><input type="text" name="titre" value="<?php if(isset($donnees['titre'])){echo $donnees['titre'];} ?>" /></td>
             </tr>
             <tr>
                 <td><label for="description">description</label></td>
-                <td><textarea name="description" placeholder="description du produit"></textarea></td>
+                <td><textarea name="description" placeholder="description du produit"><?php if(isset($donnees['description'])){echo $donnees['description']; }?></textarea></td>
             </tr>
             <tr>
                 <td><label for="couleur">couleur</label></td>
-                <td><input type="text" name="couleur" /></td>
+                <td><input type="text" name="couleur" value="<?php if(isset($donnees['couleur'])){ echo $donnees['couleur'];} ?>" /></td>
             </tr>
             <tr>
                 <td><label for="taille">taille</label></td>
                 <td> <select name="taille">
-                        <option value="x">X</option>
-                        <option value="xl">XL</option>
-                        <option value="m">M</option>
-                        <option value="s">S</option>
+                        <option value="X" <?php if(isset($donnees['taille']) and $donnees['taille'] =='X'){ echo 'selected';} ?>>X</option>
+                        <option value="XL" <?php if(isset($donnees['taille']) and $donnees['taille'] =='XL'){ echo 'selected';} ?> >XL</option>
+                        <option value="M" <?php if(isset($donnees['taille']) and $donnees['taille'] =='M'){ echo 'selected';} ?>>M</option>
+                        <option value="L" <?php if(isset($donnees['taille']) and $donnees['taille'] =='L'){ echo 'selected';} ?>>L</option>
+                        <option value="S" <?php if(isset($donnees['taille']) and $donnees['taille'] =='S'){ echo 'selected';} ?>>S</option>
                     </select></td>
             </tr>
             <tr>
