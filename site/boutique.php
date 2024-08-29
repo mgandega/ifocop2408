@@ -41,11 +41,10 @@ include("inc/haut.inc.php");
                         <h4 class='card-title'><img  src='$donnees[photo]' width='120' /></h4>
                         <p class='card-text'>$donnees[description]</p>
                         <p class='card-text'>couleur: $donnees[couleur]</p>
-                        <p class='card-text'>taille: $donnees[taille]</p>
                         <p class='card-text'>genre: $donnees[public]</p>
                         <p class='card-text'>catégorie: $donnees[categorie]</p>
                         <p class='card-text'>prix: $donnees[prix]</p>
-                        <button><a href=''>details</a></button>
+                        <button><a href='fiche_produit.php?idProduit=$donnees[id_produit]'>details</a></button>
                     </div>
                 </div>";
                 }
@@ -62,7 +61,6 @@ include("inc/haut.inc.php");
                         <h4 class='card-title'><img  src='$donnees[photo]' width='120' /></h4>
                         <p class='card-text'>$donnees[description]</p>
                         <p class='card-text'>couleur: $donnees[couleur]</p>
-                        <p class='card-text'>taille: $donnees[taille]</p>
                         <p class='card-text'>genre: $donnees[public]</p>
                         <p class='card-text'>catégorie: $donnees[categorie]</p>
                         <p class='card-text'>prix: $donnees[prix]</p>
