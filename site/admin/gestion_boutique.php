@@ -6,7 +6,7 @@ include("../inc/haut.inc.php");
 echo "<a href='?action=ajouter'> Ajouter un produit </a><br><br>";
 echo "<a href='?action=afficher'> Afficher des produits </a><br><br>";
 if (!empty($_POST)) {
-    debug($_FILES);
+    // debug($_FILES);
     $reference = 'ifocop_' . time();
     if (!empty($_FILES['photo']['name'])) {
 
@@ -46,7 +46,7 @@ if (!empty($_POST)) {
 
     // MODIFICATION DE PRODUIT
     if (isset($_GET['action']) and $_GET['action'] == 'modifier' and isset($_GET['idProduit'])) {
-        debug($_POST);
+        // debug($_POST);
         // si $_FILES['photo']['name'] est vide, cela veut dire qu'il y'a pas de photo .
         // ici on dit :si $_FILES['photo']['name'] est vide ne rajoute pas de photo ($db)
         if(empty($_FILES['photo']['name'])){
@@ -60,7 +60,7 @@ if (!empty($_POST)) {
         }
         } elseif (isset($_GET['action']) and $_GET['action'] == "ajouter") {
             // AJOUT DE PRODUIT
-            $resultat = $pdo->exec("INSERT INTO produit(reference,categorie,titre,description,couleur,taille,public,photo,prix,stock) VALUES('$reference','$categorie','$titre','$description','$couleur','$taille','$public','$photo','$prix','$stock')");
+            $resultat = $pdo->exec("INSERT INTO produit(reference,categorie,titre,description,couleur,taille,public,photo,prix,stock) VALUES('$reference','$categorie','$titre','$description','$couleur','$taille','$public','$db','$prix','$stock')");
             if ($resultat) {
                 echo "<span style='background-color:green;color:white'>produit ajouté avec succès<span>";
             }
