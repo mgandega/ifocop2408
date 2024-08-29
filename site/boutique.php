@@ -64,7 +64,7 @@ include("inc/haut.inc.php");
                         <p class='card-text'>genre: $donnees[public]</p>
                         <p class='card-text'>catégorie: $donnees[categorie]</p>
                         <p class='card-text'>prix: $donnees[prix]</p>
-                        <button><a href=''>details</a></button>
+                         <button><a href='fiche_produit.php?idProduit=$donnees[id_produit]'>details</a></button>
                     </div>
                 </div>";
             }
