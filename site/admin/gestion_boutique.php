@@ -12,7 +12,7 @@ if (!empty($_POST)) {
         // time() est appelé timestamp càd le nombre de secondes écoulé depuis le 1er janvier 1970
         // ce nombre change chaque seconds
         $unique = time();
-        $reference = 'ifocop_'.time();
+        $reference = 'ifocop_' . time();
         // debug($unique);
         // ici on utilise la fonction time() pour avoir un nombre unique, ainsi on évitera d'avoir deux photos de même nom
         $nom_photo = $unique . '_' . $_FILES['photo']['name'];
@@ -29,73 +29,118 @@ if (!empty($_POST)) {
         // le tmp_name represente la photo
         copy($_FILES['photo']['tmp_name'], $chemin);
     }
-// debug($_POST);
-$reference = $reference;
-$categorie = $_POST['categorie'];
-$titre = $_POST['titre'];
-$description = $_POST['description'];
-$couleur = $_POST['couleur'];
-$taille = $_POST['taille'];
-$public = $_POST['public'];
-$photo = $db; // /ifocop_2024/site/photo/nom_photo
-$prix = $_POST['prix'];
-$stock = $_POST['stock'];
+    // debug($_POST);
+    $reference = $reference;
+    $categorie = $_POST['categorie'];
+    $titre = $_POST['titre'];
+    $description = $_POST['description'];
+    $couleur = $_POST['couleur'];
+    $taille = $_POST['taille'];
+    $public = $_POST['public'];
+    $photo = $db; // /ifocop_2024/site/photo/nom_photo
+    $prix = $_POST['prix'];
+    $stock = $_POST['stock'];
 
-   $resultat = $pdo->exec("INSERT INTO produit(reference,categorie,titre,description,couleur,taille,public,photo,prix,stock) VALUES('$reference','$categorie','$titre','$description','$couleur','$taille','$public','$photo','$prix','$stock')");
-   if($resultat){
-    echo "<span style='background-color:green;color:white'>produit ajouté avec succès<span>";
-   }
-
+    $resultat = $pdo->exec("INSERT INTO produit(reference,categorie,titre,description,couleur,taille,public,photo,prix,stock) VALUES('$reference','$categorie','$titre','$description','$couleur','$taille','$public','$photo','$prix','$stock')");
+    if ($resultat) {
+        echo "<span style='background-color:green;color:white'>produit ajouté avec succès<span>";
+    }
 }
 ?>
 <!-- ne pas oublier  de mettre enctype="multipart/form-data" dans form et de mettre le type en file -->
- <?php
- // si tu voie action=ajouter sur l'url
- if(isset($_GET['action']) and $_GET['action'] == "ajouter" ){
+<?php
+// si tu voie action=ajouter sur l'url
+if (isset($_GET['action']) and $_GET['action'] == "ajouter" || $_GET['action'] == 'modifier') {
+    if (isset($_GET['idProduit'])) {
+        $produit = $pdo->query("SELECT * FROM produit WHERE id_produit = '$_GET[idProduit]' ");
+        // ici on ne boucle pas avec while car on recupere juste une ligne (de la base de données) donc le produit à modifier
+        $donnees = $produit->fetch(PDO::FETCH_ASSOC);
+    }
 ?>
-<form action="" method="post" enctype="multipart/form-data">
-    <table>
-        <tr><td><input type="hidden" name="reference" /></td></tr>
-        <tr><td><label for="categorie">categorie</label></td><td><input type="text" name="categorie" /><br></td></tr>
-        <tr><td><label for="titre">titre</label></td><td><input type="text" name="titre" /></td></tr>
-        <tr><td><label for="description">description</label></td><td><textarea name="description" placeholder="description du produit"></textarea></td></tr>
-        <tr><td><label for="couleur">couleur</label></td><td><input type="text" name="couleur" /></td></tr>
-        <tr><td><label for="taille">taille</label></td><td> <select name="taille">
-        <option value="x">X</option>
-        <option value="xl">XL</option>
-        <option value="m">M</option>
-        <option value="s">S</option>
-    </select></td></tr>
-        <tr><td><label for="public">public</label></td><td> <select name="public">
-        <option value="m">Masculin</option>
-        <option value="f">Feminin</option>
-        <option value="mixte">Mixte</option>
-    </select></td></tr>
-        <tr><td></td><td> <select name="public">
-        <option value="m">Masculin</option>
-        <option value="f">Feminin</option>
-        <option value="mixte">Mixte</option>
-    </select></td></tr>
-        <tr><td><label for="photo">photo</label></td><td> <input type="file" name="photo" /></td></tr>
-        <tr><td> <label for="prix">prix</label></td><td><input type="number" name="prix" /></td></tr>
-        <tr><td><label for="stock">stock</label></td><td><input type="number" name="stock" /></td></tr>
-        <tr><td></td><td><input type="submit" /></td></tr>
-    </table>
+    <form action="" method="post" enctype="multipart/form-data">
+        <table class="table">
+            <tr>
+                <td><input type="hidden" name="reference" /></td>
+            </tr>
+            <tr>
+                <td><label for="categorie">categorie</label></td>
+                <td><input type="text" name="categorie" value="<?php if(isset($donnees['categorie'])){ echo $donnees['categorie'];} ?>" /><br></td>
+            </tr>
+            <tr>
+                <td><label for="titre">titre</label></td>
+                <td><input type="text" name="titre" /></td>
+            </tr>
+            <tr>
+                <td><label for="description">description</label></td>
+                <td><textarea name="description" placeholder="description du produit"></textarea></td>
+            </tr>
+            <tr>
+                <td><label for="couleur">couleur</label></td>
+                <td><input type="text" name="couleur" /></td>
+            </tr>
+            <tr>
+                <td><label for="taille">taille</label></td>
+                <td> <select name="taille">
+                        <option value="x">X</option>
+                        <option value="xl">XL</option>
+                        <option value="m">M</option>
+                        <option value="s">S</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td><label for="public">public</label></td>
+                <td> <select name="public">
+                        <option value="m">Masculin</option>
+                        <option value="f">Feminin</option>
+                        <option value="mixte">Mixte</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td><label for="photo">photo</label></td>
+                <td> <input type="file" name="photo" /></td>
+            </tr>
+            <tr>
+                <td> <label for="prix">prix</label></td>
+                <td><input type="number" name="prix" /></td>
+            </tr>
+            <tr>
+                <td><label for="stock">stock</label></td>
+                <td><input type="number" name="stock" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" /></td>
+            </tr>
+        </table>
 
-</form>
+    </form>
 
 <?php
- }
- if(isset($_GET['action']) and $_GET['action'] == "afficher"){
-   $produits = $pdo->query("SELECT * FROM produit");
-echo "<table>";
-echo "<tr><th>reference</th><th>categorie</th><th>titre</th><th>photo</th><th>prix</th></tr>";
-while($donnees = $produits->fetch(PDO::FETCH_ASSOC)){
-    // debug($donnees);
-   echo "<tr><td>$donnees[reference]</td><td>$donnees[categorie]</td><td>$donnees[titre]</td><td><img src='$donnees[photo]' alt='' width='70' /></td><td>$donnees[prix]</td></tr>";
+
 }
-echo "</table>";
+if (isset($_GET['action']) and $_GET['action'] == "afficher") {
+
+    if (isset($_GET['supp']) and $_GET['supp'] == 'supprimer') {
+        echo "ok";
+        $resultat  = $pdo->exec("DELETE FROM produit WHERE id_produit = '$_GET[idProduit]' ");
+        if ($resultat == 1) {
+            echo "<span style='background-color: red; color:white'>suppression effectuée avec succès</span>";
+        }
+        // ici j'ai rajouter ?action=afficher pour dire qu'on reste sur la même page (gestion_boutique.php)
+        header("location:gestion_boutique.php?action=afficher");
+    }
+
+
+    $produits = $pdo->query("SELECT * FROM produit");
+    echo "<table>";
+    echo "<tr><th>reference</th><th>categorie</th><th>titre</th><th>photo</th><th>prix</th></tr>";
+    while ($donnees = $produits->fetch(PDO::FETCH_ASSOC)) {
+        // debug($donnees);
+        echo "<tr><td>$donnees[reference]</td><td>$donnees[categorie]</td><td>$donnees[titre]</td><td><img src='$donnees[photo]' alt='' width='70' /></td><td>$donnees[prix]</td><td><a href='?action=afficher&supp=supprimer&idProduit=$donnees[id_produit]'>supprimer</a></td><td><a href='?action=modifier&idProduit=$donnees[id_produit]'>modifier</a></td></tr>";
+    }
+    echo "</table>";
 }
+
 
 include("../inc/bas.inc.php");
 ?>
