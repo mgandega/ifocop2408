@@ -38,7 +38,7 @@ if (!empty($_POST)) {
     $couleur = $_POST['couleur'];
     $taille = $_POST['taille'];
     $public = $_POST['public'];
-    $photo = $db; // /ifocop_2024/site/photo/nom_photo
+     // /ifocop_2024/site/photo/nom_photo
     $prix = $_POST['prix'];
     $stock = $_POST['stock'];
 
@@ -46,9 +46,18 @@ if (!empty($_POST)) {
 
     // MODIFICATION DE PRODUIT
     if (isset($_GET['action']) and $_GET['action'] == 'modifier' and isset($_GET['idProduit'])) {
-        $resultat =   $pdo->exec("UPDATE produit set categorie='$_POST[categorie]' WHERE id_produit='$_GET[idProduit]' ");
+        debug($_POST);
+        // si $_FILES['photo']['name'] est vide, cela veut dire qu'il y'a pas de photo .
+        // ici on dit :si $_FILES['photo']['name'] est vide ne rajoute pas de photo ($db)
+        if(empty($_FILES['photo']['name'])){
+            $resultat =   $pdo->exec("UPDATE produit set categorie='$_POST[categorie]',titre= '$_POST[titre]', description = '$_POST[description]', couleur='$_POST[couleur]', taille='$_POST[taille]',public='$_POST[public]',prix='$_POST[prix]',stock='$_POST[stock]'  WHERE id_produit='$_GET[idProduit]' ");
+        }else{
+            // sinon rajoute la photo ($db)
+            $resultat =   $pdo->exec("UPDATE produit set categorie='$_POST[categorie]', description = '$_POST[description]', couleur='$_POST[couleur]', taille='$_POST[taille]',public='$_POST[public]',prix='$_POST[prix]',photo='$db', stock='$_POST[stock]'  WHERE id_produit='$_GET[idProduit]' ");
+        }
         if ($resultat == 1) {
             echo "<span style='background-color:green;color:white'>produit modifié avec succès<span>";
+        }
         } elseif (isset($_GET['action']) and $_GET['action'] == "ajouter") {
             // AJOUT DE PRODUIT
             $resultat = $pdo->exec("INSERT INTO produit(reference,categorie,titre,description,couleur,taille,public,photo,prix,stock) VALUES('$reference','$categorie','$titre','$description','$couleur','$taille','$public','$photo','$prix','$stock')");
@@ -57,7 +66,6 @@ if (!empty($_POST)) {
             }
         }
     }
-}
 ?>
 <!-- ne pas oublier  de mettre enctype="multipart/form-data" dans form et de mettre le type en file -->
 <?php
