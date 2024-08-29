@@ -34,7 +34,7 @@ if (!empty($_POST)) {
     $reference = $reference;
     $categorie = $_POST['categorie'];
     $titre = $_POST['titre'];
-    $description = $_POST['description'];
+    $description = addslashes($_POST['description']);
     $couleur = $_POST['couleur'];
     $taille = $_POST['taille'];
     $public = $_POST['public'];
@@ -50,10 +50,10 @@ if (!empty($_POST)) {
         // si $_FILES['photo']['name'] est vide, cela veut dire qu'il y'a pas de photo .
         // ici on dit :si $_FILES['photo']['name'] est vide ne rajoute pas de photo ($db)
         if(empty($_FILES['photo']['name'])){
-            $resultat =   $pdo->exec("UPDATE produit set categorie='$_POST[categorie]',titre= '$_POST[titre]', description = '$_POST[description]', couleur='$_POST[couleur]', taille='$_POST[taille]',public='$_POST[public]',prix='$_POST[prix]',stock='$_POST[stock]'  WHERE id_produit='$_GET[idProduit]' ");
+            $resultat =   $pdo->exec("UPDATE produit set categorie='$categorie',titre= '$titre', description = '$description', couleur='$couleur', taille='$taille',public='$public',prix='$prix',stock='$stock'  WHERE id_produit='$_GET[idProduit]' ");
         }else{
             // sinon rajoute la photo ($db)
-            $resultat =   $pdo->exec("UPDATE produit set categorie='$_POST[categorie]', description = '$_POST[description]', couleur='$_POST[couleur]', taille='$_POST[taille]',public='$_POST[public]',prix='$_POST[prix]',photo='$db', stock='$_POST[stock]'  WHERE id_produit='$_GET[idProduit]' ");
+            $resultat =   $pdo->exec("UPDATE produit set categorie='$categorie', description = '$description', couleur='$couleur', taille='$taille',public='$public',prix='$prix',photo='$db', stock='$stock'  WHERE id_produit='$_GET[idProduit]' ");
         }
         if ($resultat == 1) {
             echo "<span style='background-color:green;color:white'>produit modifié avec succès<span>";
