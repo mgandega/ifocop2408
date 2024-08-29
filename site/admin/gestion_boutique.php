@@ -6,13 +6,14 @@ include("../inc/haut.inc.php");
 echo "<a href='?action=ajouter'> Ajouter un produit </a><br><br>";
 echo "<a href='?action=afficher'> Afficher des produits </a><br><br>";
 if (!empty($_POST)) {
-    if (!empty($_FILES['photo'])) {
+    debug($_FILES);
+    $reference = 'ifocop_' . time();
+    if (!empty($_FILES['photo']['name'])) {
 
         // debug($_FILES);
         // time() est appelé timestamp càd le nombre de secondes écoulé depuis le 1er janvier 1970
         // ce nombre change chaque seconds
         $unique = time();
-        $reference = 'ifocop_' . time();
         // debug($unique);
         // ici on utilise la fonction time() pour avoir un nombre unique, ainsi on évitera d'avoir deux photos de même nom
         $nom_photo = $unique . '_' . $_FILES['photo']['name'];
@@ -41,9 +42,20 @@ if (!empty($_POST)) {
     $prix = $_POST['prix'];
     $stock = $_POST['stock'];
 
-    $resultat = $pdo->exec("INSERT INTO produit(reference,categorie,titre,description,couleur,taille,public,photo,prix,stock) VALUES('$reference','$categorie','$titre','$description','$couleur','$taille','$public','$photo','$prix','$stock')");
-    if ($resultat) {
-        echo "<span style='background-color:green;color:white'>produit ajouté avec succès<span>";
+
+
+    // MODIFICATION DE PRODUIT
+    if (isset($_GET['action']) and $_GET['action'] == 'modifier' and isset($_GET['idProduit'])) {
+        $resultat =   $pdo->exec("UPDATE produit set categorie='$_POST[categorie]' WHERE id_produit='$_GET[idProduit]' ");
+        if ($resultat == 1) {
+            echo "<span style='background-color:green;color:white'>produit modifié avec succès<span>";
+        } elseif (isset($_GET['action']) and $_GET['action'] == "ajouter") {
+            // AJOUT DE PRODUIT
+            $resultat = $pdo->exec("INSERT INTO produit(reference,categorie,titre,description,couleur,taille,public,photo,prix,stock) VALUES('$reference','$categorie','$titre','$description','$couleur','$taille','$public','$photo','$prix','$stock')");
+            if ($resultat) {
+                echo "<span style='background-color:green;color:white'>produit ajouté avec succès<span>";
+            }
+        }
     }
 }
 ?>
@@ -64,53 +76,91 @@ if (isset($_GET['action']) and $_GET['action'] == "ajouter" || $_GET['action'] =
             </tr>
             <tr>
                 <td><label for="categorie">categorie</label></td>
-                <td><input type="text" name="categorie" value="<?php if(isset($donnees['categorie'])){ echo $donnees['categorie'];} ?>" /><br></td>
+                <td><input type="text" name="categorie" value="<?php if (isset($donnees['categorie'])) {
+                                                                    echo $donnees['categorie'];
+                                                                } ?>" /><br></td>
             </tr>
             <tr>
                 <td><label for="titre">titre</label></td>
-                <td><input type="text" name="titre" value="<?php if(isset($donnees['titre'])){echo $donnees['titre'];} ?>" /></td>
+                <td><input type="text" name="titre" value="<?php if (isset($donnees['titre'])) {
+                                                                echo $donnees['titre'];
+                                                            } ?>" /></td>
             </tr>
             <tr>
                 <td><label for="description">description</label></td>
-                <td><textarea name="description" placeholder="description du produit"><?php if(isset($donnees['description'])){echo $donnees['description']; }?></textarea></td>
+                <td><textarea name="description" placeholder="description du produit"><?php if (isset($donnees['description'])) {
+                                                                                            echo $donnees['description'];
+                                                                                        } ?></textarea></td>
             </tr>
             <tr>
                 <td><label for="couleur">couleur</label></td>
-                <td><input type="text" name="couleur" value="<?php if(isset($donnees['couleur'])){ echo $donnees['couleur'];} ?>" /></td>
+                <td><input type="text" name="couleur" value="<?php if (isset($donnees['couleur'])) {
+                                                                    echo $donnees['couleur'];
+                                                                } ?>" /></td>
             </tr>
             <tr>
                 <td><label for="taille">taille</label></td>
                 <td> <select name="taille">
-                        <option value="X" <?php if(isset($donnees['taille']) and $donnees['taille'] =='X'){ echo 'selected';} ?>>X</option>
-                        <option value="XL" <?php if(isset($donnees['taille']) and $donnees['taille'] =='XL'){ echo 'selected';} ?> >XL</option>
-                        <option value="M" <?php if(isset($donnees['taille']) and $donnees['taille'] =='M'){ echo 'selected';} ?>>M</option>
-                        <option value="L" <?php if(isset($donnees['taille']) and $donnees['taille'] =='L'){ echo 'selected';} ?>>L</option>
-                        <option value="S" <?php if(isset($donnees['taille']) and $donnees['taille'] =='S'){ echo 'selected';} ?>>S</option>
+                        <option value="X" <?php if (isset($donnees['taille']) and $donnees['taille'] == 'X') {
+                                                echo 'selected';
+                                            } ?>>X</option>
+                        <option value="XL" <?php if (isset($donnees['taille']) and $donnees['taille'] == 'XL') {
+                                                echo 'selected';
+                                            } ?>>XL</option>
+                        <option value="M" <?php if (isset($donnees['taille']) and $donnees['taille'] == 'M') {
+                                                echo 'selected';
+                                            } ?>>M</option>
+                        <option value="L" <?php if (isset($donnees['taille']) and $donnees['taille'] == 'L') {
+                                                echo 'selected';
+                                            } ?>>L</option>
+                        <option value="S" <?php if (isset($donnees['taille']) and $donnees['taille'] == 'S') {
+                                                echo 'selected';
+                                            } ?>>S</option>
                     </select></td>
             </tr>
             <tr>
                 <td><label for="public">public</label></td>
                 <td> <select name="public">
-                        <option value="m">Masculin</option>
-                        <option value="f">Feminin</option>
-                        <option value="mixte">Mixte</option>
+                        <option value="m" <?php if (isset($donnees['public']) and $donnees['public'] == 'm') {
+                                                echo 'selected';
+                                            } ?>>Masculin</option>
+                        <option value="f" <?php if (isset($donnees['public']) and $donnees['public'] == 'f') {
+                                                echo 'selected';
+                                            } ?>>Feminin</option>
+                        <option value="mixte" <?php if (isset($donnees['public']) and $donnees['public'] == 'mixte') {
+                                                    echo 'selected';
+                                                } ?>>Mixte</option>
                     </select></td>
             </tr>
             <tr>
                 <td><label for="photo">photo</label></td>
                 <td> <input type="file" name="photo" /></td>
+                <td><img src="<?php if (isset($donnees['photo'])) {
+                                    echo $donnees['photo'];
+                                } ?>" width="70" /></td>
             </tr>
             <tr>
                 <td> <label for="prix">prix</label></td>
-                <td><input type="number" name="prix" /></td>
+                <td><input type="number" name="prix" value="<?php if (isset($donnees['prix'])) {
+                                                                echo $donnees['prix'];
+                                                            } ?>" /></td>
+                <!-- <td><input type="number" name="prix" value="<?= '' // $donnees['titre']??'' 
+                                                                    ?>" /></td> -->
             </tr>
             <tr>
                 <td><label for="stock">stock</label></td>
-                <td><input type="number" name="stock" /></td>
+                <td><input type="number" name="stock" value="<?php if (isset($donnees['stock'])) {
+                                                                    echo $donnees['stock'];
+                                                                } ?>" /></td>
             </tr>
             <tr>
                 <td></td>
-                <td><input type="submit" /></td>
+                <?php if (isset($_GET['idProduit'])) {
+                    echo '<td><input type="submit" value="Modification de produit"/></td>';
+                } else {
+                    echo '<td><input type="submit" value="Ajout de produit"/></td>';
+                }
+                ?>
             </tr>
         </table>
 
