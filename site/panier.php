@@ -52,4 +52,5 @@ if(isset($_POST['id_produit'])){
     }
     ?>
 </table>
+<h5 style='margin-top:50px ;text-align: right'><a href='validation.php'>valider l'achat</a></h5>
 
