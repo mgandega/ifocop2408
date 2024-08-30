@@ -1,6 +1,15 @@
 <?php
 include("inc/init.inc.php");
 include("inc/haut.inc.php");
+// SUPPRESSION D'UN PRODUIT DANS LE PANIER
+if(isset($_GET['action']) and $_GET['action']=='supprimer'){
+    unset($_SESSION['panier']['id_produit'][$_GET['position']]);
+    unset($_SESSION['panier']['titre'][$_GET['position']]);
+    unset($_SESSION['panier']['quantite'][$_GET['position']]);
+    unset($_SESSION['panier']['prix'][$_GET['position']]);
+    echo "suppression effectuée avec succès";
+}
+// FIN SUPPRESSION
 
 // la veleur de id_produit et la quantite sont disponible ici (panier.php) car elles sont récupérées quand on avait cliqué sur le lien ajout au panier (dans le fichier fiche_produit.php )
 // la fonction debug est une fonction qu'on a créeé par nous même dans init.inc.php
@@ -28,13 +37,19 @@ if(isset($_POST['id_produit'])){
 <table class='table'>
     <tr><th>titre</th><th>prix</th><th>quantité</th><th>Prix total / produit</th></tr>
     <?php
+
     // ici, on a choisi de mettre $_SESSION['panier']['id_produit'] car l'id du produit represente le produit 
     // on pouvait remplacer la valeur de id_produit par le prix, le titre ou la quantite (ça affiche toujours le même nombre d'élements)
-    for($i=0; $i<count($_SESSION['panier']['id_produit']); $i++) {
-        echo "<tr><td>".$_SESSION['panier']['titre'][$i]."</td><td>".$_SESSION['panier']['prix'][$i]."</td><td>".$_SESSION['panier']['quantite'][$i]."</td><td>".$_SESSION['panier']['prix'][$i]*$_SESSION['panier']['quantite'][$i]."</td></tr>";
+    if(isset($_SESSION['panier']['id_produit']) and !empty($_SESSION['panier']['id_produit'])){
+
+        for($i=0; $i<count($_SESSION['panier']['id_produit']); $i++) {
+            echo "<tr><td>".$_SESSION['panier']['titre'][$i]."</td><td>".$_SESSION['panier']['prix'][$i]."</td><td>".$_SESSION['panier']['quantite'][$i]."</td><td>".$_SESSION['panier']['prix'][$i]*$_SESSION['panier']['quantite'][$i]."</td><td><button><a href='?action=supprimer&position=".$i."'>supprimer</a></button></td></tr>";
+        }
+        // prixTotal() est executé dans le fichier init.inc.php
+        echo "<tr><th></th><th></th><th>Prix total</th><th>".prixTotal()."</th></tr>";
+    }else{
+        echo "<tr><td></td><td>le panier est vide</td></tr>";
     }
-    // prixTotal() est executé dans le fichier init.inc.php
-    echo "<tr><th></th><th></th><th>Prix total</th><th>".prixTotal()."</th></tr>";
     ?>
 </table>
 

@@ -18,7 +18,8 @@ if(!empty($_POST)){
         // ici, on n'a pas besoin d'utiliser un while car on veut juste recuperer une seule ligne
         $donnees = $membre->fetch(PDO::FETCH_ASSOC);
         // on verifie est ce que le mot de passe de ce membre est egal au mot de passe envoyé par le formulaire
-        if($donnees['mdp'] == $_POST['mdp']){
+
+        if($donnees['mdp'] == md5($_POST['mdp'])){
             $_SESSION['membre']['pseudo'] = $donnees['pseudo'];
             $_SESSION['membre']['prenom'] = $donnees['prenom'];
             $_SESSION['membre']['nom'] = $donnees['nom'];
