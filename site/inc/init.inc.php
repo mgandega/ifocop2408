@@ -38,19 +38,22 @@ function debug($val)
     echo "</pre>";
 }
 ////////////////////////// PARTIE PANIER /////////////////////////
+
+// cette methode aura comme mission de créer le panier si le panier n'existe pas encore
 function creationDuPanier()
 {
     // si le panier n'existe pas encore créé le moi
-if(!isset($_SESSION['panier'])){
-    $_SESSION['panier'] = [];
-    $_SESSION['panier']['id_produit'] = [];
-    $_SESSION['panier']['titre'] = [];
-    $_SESSION['panier']['quantite'] = [];
-    $_SESSION['panier']['prix'] = [];
-}
+    if (!isset($_SESSION['panier'])) {
+        $_SESSION['panier'] = [];
+        $_SESSION['panier']['id_produit'] = [];
+        $_SESSION['panier']['titre'] = [];
+        $_SESSION['panier']['quantite'] = [];
+        $_SESSION['panier']['prix'] = [];
+    }
 }
 
 
+// cette fonction aura comme mission d'ajouter un produit dans le panier
 function ajouterProduitDansPanier($id_produit, $prix, $titre, $quantite)
 {
     // avant de mettre un produit dans le panier, il faut d'abord créer le panier
@@ -74,7 +77,6 @@ function ajouterProduitDansPanier($id_produit, $prix, $titre, $quantite)
         // phase 2
         // si le produit existe déja dans le panier, on rajoute juste la quantité
         $_SESSION['panier']['quantite'][$position] += $quantite;
-
     } else {
         // phase 1
         // si on vient juste d'ajouter un nouveau produit dans le panier
@@ -83,4 +85,16 @@ function ajouterProduitDansPanier($id_produit, $prix, $titre, $quantite)
         $_SESSION['panier']['quantite'][] = $quantite;
         $_SESSION['panier']['prix'][] = $prix;
     }
+}
+
+// PRIX TOTAL
+
+function prixTotal()
+{
+    $total = 0;
+    for ($i = 0; $i < count($_SESSION['panier']['id_produit']); $i++) {
+        // pour chaque ligne du panier je recupère la valeur de $total + (le prix X la quantité) et je le stock dans $total
+        $total += $_SESSION['panier']['prix'][$i] * $_SESSION['panier']['quantite'][$i];
+    }
+    return $total;
 }
