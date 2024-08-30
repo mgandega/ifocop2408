@@ -67,12 +67,12 @@ function ajouterProduitDansPanier($id_produit, $prix, $titre, $quantite)
     // je teste si la valeur 5 se trouve dans le tableau
     // ici la fonction me retourne 1 (qui est la clé correspondante à la valeur 5)
     $resultat = array_search(5, $array);
-    debug($resultat);
+    // debug($resultat);
     /// fin exo //////
 
     if ($position !== false) {
         // phase 2
-        // si le produit existe déja dans panier
+        // si le produit existe déja dans le panier, on rajoute juste la quantité
         $_SESSION['panier']['quantite'][$position] += $quantite;
 
     } else {
