@@ -52,5 +52,9 @@ if(isset($_POST['id_produit'])){
     }
     ?>
 </table>
-<h5 style='margin-top:50px ;text-align: right'><a href='validation.php'>valider l'achat</a></h5>
+<?php
+// debug($_SESSION['panier']);
+if(isset($_SESSION['panier']['id_produit']) and !empty($_SESSION['panier']['id_produit'])){
+    echo "<h5 style='margin-top:50px ;text-align: right'><a href='validation.php'>valider l'achat</a></h5>";
+}
 
