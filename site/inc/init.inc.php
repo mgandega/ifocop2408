@@ -3,70 +3,84 @@
 // devront être ajoutées ici
 
 // base de données 
-$pdo = new PDO("mysql:host=localhost;dbname=ecom_ifocop","root","root");
+$pdo = new PDO("mysql:host=localhost;dbname=ecom_ifocop", "root", "root");
 
 // session
 session_start();
 
 // constante
-define("RACINE_SITE","/ifocop_240719/site/");
+define("RACINE_SITE", "/ifocop_240719/site/");
 
 
 // fonction
 // Si l'utilisateur a un statut et que son statut est egal à 0, il est considéré comme membre (ordinaire)
-function isConnected(){
-    if(isset($_SESSION['membre']['statut']) and $_SESSION['membre']['statut'] == 0){
+function isConnected()
+{
+    if (isset($_SESSION['membre']['statut']) and $_SESSION['membre']['statut'] == 0) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
-function isConnectedAndAdmin(){
-    if(isset($_SESSION['membre']['statut']) and $_SESSION['membre']['statut'] == 1){
+function isConnectedAndAdmin()
+{
+    if (isset($_SESSION['membre']['statut']) and $_SESSION['membre']['statut'] == 1) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
 
-function debug($val){
+function debug($val)
+{
     echo "<pre>";
     print_r($val);
     echo "</pre>";
 }
 ////////////////////////// PARTIE PANIER /////////////////////////
-function creationDuPanier(){
+function creationDuPanier()
+{
+    // si le panier n'existe pas encore créé le moi
+if(!isset($_SESSION['panier'])){
     $_SESSION['panier'] = [];
     $_SESSION['panier']['id_produit'] = [];
     $_SESSION['panier']['titre'] = [];
     $_SESSION['panier']['quantite'] = [];
     $_SESSION['panier']['prix'] = [];
 }
+}
 
 
-function ajouterProduitDansPanier($id_produit,$prix,$titre,$quantite){
-// avant de mettre un produit dans le panier, il faut d'abord créer le panier
-creationDuPanier();
+function ajouterProduitDansPanier($id_produit, $prix, $titre, $quantite)
+{
+    // avant de mettre un produit dans le panier, il faut d'abord créer le panier
+    creationDuPanier();
 
-// ici on recherche si le produit existe déja dans le panier (particulierement dans $_SESSION['panier']['id_produit'])
-// si oui, la fonction retournera la clé correspondant (qui peut être de type string ou int) 
-// si non, il retournera false
-// le produit est representé par l'id (id_produit) car il est unique
-   $position = array_search($id_produit, $_SESSION['panier']['id_produit']);
+    // ici on recherche si le produit existe déja dans le panier (particulierement dans $_SESSION['panier']['id_produit'])
+    // si oui, la fonction retournera la clé correspondant (qui peut être de type string ou int) 
+    // si non, il retournera false
+    // le produit est representé par l'id (id_produit) car il est unique
+    $position = array_search($id_produit, $_SESSION['panier']['id_produit']);
 
-   ///// debut exo ///
-   $array = [2,5,12];
-   // je teste si la valeur 5 se trouve dans le tableau
-   $resultat =array_search();
-   debug($resultat);
-   /// fin exo //////
+    ///// debut exo ///
+    $array = [2, 5, 12];
+    // je teste si la valeur 5 se trouve dans le tableau
+    // ici la fonction me retourne 1 (qui est la clé correspondante à la valeur 5)
+    $resultat = array_search(5, $array);
+    debug($resultat);
+    /// fin exo //////
 
-   if($position != false){
-    // si le produit existe déja dans panier
+    if ($position !== false) {
+        // phase 2
+        // si le produit existe déja dans panier
+        $_SESSION['panier']['quantite'][$position] += $quantite;
 
-   }else{
-    // si on vient juste d'ajouter un nouveau produit dans le panier
-   }
-
-
+    } else {
+        // phase 1
+        // si on vient juste d'ajouter un nouveau produit dans le panier
+        $_SESSION['panier']['id_produit'][] = $id_produit;
+        $_SESSION['panier']['titre'][] = $titre;
+        $_SESSION['panier']['quantite'][] = $quantite;
+        $_SESSION['panier']['prix'][] = $prix;
+    }
 }
