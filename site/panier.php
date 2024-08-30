@@ -2,6 +2,7 @@
 include("inc/init.inc.php");
 include("inc/haut.inc.php");
 
+// la veleur de id_produit et la quantite sont disponible ici (panier.php) car elles sont récupérées quand on avait cliqué sur le lien ajout au panier (dans le fichier fiche_produit.php )
 // la fonction debug est une fonction qu'on a créeé par nous même dans init.inc.php
 // debug($_POST);
 // je teste si id_produit exite en POST (çàd si id_produit a été envoyé quand on cliqué sur le bouton ajouter au panier)
@@ -32,6 +33,7 @@ if(isset($_POST['id_produit'])){
     for($i=0; $i<count($_SESSION['panier']['id_produit']); $i++) {
         echo "<tr><td>".$_SESSION['panier']['titre'][$i]."</td><td>".$_SESSION['panier']['prix'][$i]."</td><td>".$_SESSION['panier']['quantite'][$i]."</td><td>".$_SESSION['panier']['prix'][$i]*$_SESSION['panier']['quantite'][$i]."</td></tr>";
     }
+    // prixTotal() est executé dans le fichier init.inc.php
     echo "<tr><th></th><th></th><th>Prix total</th><th>".prixTotal()."</th></tr>";
     ?>
 </table>
