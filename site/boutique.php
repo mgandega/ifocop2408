@@ -8,7 +8,7 @@ include("inc/haut.inc.php");
 ?>
 <div class="container">
     <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <?php
             // selectionnes moi toutes les categories de la table produits sans les doublons
             $categories = $pdo->query("SELECT distinct(categorie) FROM produit");
@@ -20,7 +20,7 @@ include("inc/haut.inc.php");
             echo "</ul>";
             ?>
         </div>
-        <div class="row col-sm-9">
+        <div class="row col-sm-10">
             <?php
             // PARTIE DROITE
             // On affiche les produits par catégorie
@@ -34,7 +34,7 @@ include("inc/haut.inc.php");
                 // pour récupérer les catégories en tableau associatif on utilise la methode fetch 
                 while ($donnees = $produits->fetch(PDO::FETCH_ASSOC)) {
                     echo "
-                <div class='card text-white bg-primary mb-3' style='max-width: 20rem;'>
+                <div class='card text-white bg-primary mb-3' style='width:15rem;'>
                     <div class='card-header'>$donnees[titre]</div>
                     <div class='card-body'>
                         <h4 class='card-title'>$donnees[titre]</h4>
@@ -54,7 +54,7 @@ include("inc/haut.inc.php");
                 // pour récupérer les catégories en tableau associatif on utilise la methode fetch 
                 while ($donnees = $produits->fetch(PDO::FETCH_ASSOC)) {
                     echo "
-                <div class='card text-white bg-primary mb-3' style='max-width: 20rem;'>
+                <div class='card text-white bg-primary mb-3' style='margin: 20px; width: 15rem;'>
                     <div class='card-header'>$donnees[titre]</div>
                     <div class='card-body'>
                         <h4 class='card-title'>$donnees[titre]</h4>

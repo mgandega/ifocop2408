@@ -17,6 +17,7 @@ if (!empty($_POST)) {
     $adresse = htmlentities(addslashes($_POST['adresse']));
     $statut = htmlentities(addslashes($_POST['statut']));
 
+    // il faut supprimer toutes les données de la table membre puis rajouter de nouveau membre pour que le criptage fonctionne
     $resultat = $pdo->exec("INSERT INTO membre(pseudo,mdp,nom,prenom,email,civilite,ville,code_postal,adresse,statut)VALUES('$pseudo','$mdp','$nom','$prenom','$email','$civilite','$ville','$cp','$adresse','$statut')");
     if ($resultat == 1) {
         echo "membre ajouté avec succès";
