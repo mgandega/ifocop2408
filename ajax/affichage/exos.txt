@@ -1,0 +1,17 @@
+exo1:
+creer deux pages:
+- presentation.html
+- presentation.php
+dans presentation.html, créons deux div, l'un est vide et l'autre contient un bouton de soumission .
+dès qu'on clique sur le bouton de soumission, affichons un rectangle dans le premier div avec un background de couleur verte contenant un texte quelconque de couleur blanche
+
+exo2:
+creer deux pages:
+- json_exo.html
+- json_exo.php
+dans json_exo.html, créons deux div, l'une est vide et l'autre contient un bouton de soumission .
+dans json_exo.php: créons un tableau comme suit: 
+let presentation = ["prenom"=>'martin', "ville"=>"paris", "ecole"=>"ifocop"]
+dès qu'on clique sur le bouton de soumission, affichons dans la 1ere div:
+je m'appelle martin, j'étudie à ifocop et j'habite paris
+
