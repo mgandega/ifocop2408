@@ -43,7 +43,7 @@
 
         //     // l'élément vide
         //     let root = document.getElementById("root");
-        //     // si l'état de la page a changé
+        //     // si l'état de la page (dom) a changé
         //     xhr.onreadystatechange = function(){
         //       root.innerHTML = xhr.responseText;
         //     }
@@ -84,15 +84,13 @@
             let root = document.getElementById("root");
             let sousCategorie = document.getElementById("sousCategorie");
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            // si l'état de la page a changé
+            // si l'état de la page (dom) a changé
             xhr.onreadystatechange = function(){
                 sousCategorie.innerHTML =xhr.responseText;
             }
             // l'envoie de la requête au serveur
-            xhr.send();
-            
+            xhr.send();   
         }
-
     </script>
 </body>
 </html>
