@@ -17,7 +17,7 @@
     <div>
         <select id="main">
             <option value="animaux">Animaux</option>
-            <option value="fruit">fruit</option>
+            <option value="fruits">fruit</option>
             <option value="genre">genre</option>
         </select>
         <select id="sousCategorie">
@@ -52,23 +52,44 @@
             
         // }
         // Affichage avec la methode POST
+        // function affichage(){
+        //     // récupération de la valeur selectionnée
+        //     let choix = affiche.options[affiche.selectedIndex].value;
+        //     // on instancie la classe XMLHttpRequest
+        //     let xhr = new XMLHttpRequest();
+        //     // open permet de récuperer les infos contenues sur la page affichage.php 
+        //     xhr.open("POST", "select.php", true);
+
+        //     // l'élément vide
+        //     let root = document.getElementById("root");
+        //     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        //     // si l'état de la page a changé
+        //     xhr.onreadystatechange = function(){
+        //       root.innerHTML = xhr.responseText;
+        //     }
+        //     // l'envoie de la requête au serveur
+        //     xhr.send("valeur="+choix);
+            
+        // }
+
         function affichage(){
             // récupération de la valeur selectionnée
             let choix = affiche.options[affiche.selectedIndex].value;
             // on instancie la classe XMLHttpRequest
             let xhr = new XMLHttpRequest();
             // open permet de récuperer les infos contenues sur la page affichage.php 
-            xhr.open("POST", "select.php", true);
+            xhr.open("GET", "select.php?valeur="+choix, true);
 
             // l'élément vide
             let root = document.getElementById("root");
+            let sousCategorie = document.getElementById("sousCategorie");
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             // si l'état de la page a changé
             xhr.onreadystatechange = function(){
-              root.innerHTML = xhr.responseText;
+                sousCategorie.innerHTML =xhr.responseText;
             }
             // l'envoie de la requête au serveur
-            xhr.send("valeur="+choix);
+            xhr.send();
             
         }
 
