@@ -8,7 +8,7 @@ exemple:
 let xhr = new XMLHttpRequest();
 la method peut être soit GET ou POST
 la méthode GET permet de récupérer des informations provenant d'une autre page
-la méthode POST permet d'envoyer et de récuperer des informations
+la méthode POST permet d'envoyer et de récupérer des informations provenant d'une autre page
 le deuxieme parametre est là où on veut récupérer les informations
 le troisieme parametre peut être true si on veut que l'execution de la page soit asynchrone et false le contraire
 xhr.open("method", "ajax.php", true); 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .beaute{
+            color: white;
+            background-color: green;
+            width: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">aa</div>
+    <div><input id="soumission" type="submit" value="valider"  /></div>
+
+    <script>
+        // récupération de l'élement à partir de son id
+        let soumission = document.getElementById("soumission");
+        soumission.addEventListener("click",affichage)
+        function affichage(){
+            let affiche = document.getElementById("main");
+            // on instancie la classe XMLHttpRequest
+            let xhr = new XMLHttpRequest();
+            // open permet de récuperer les infos contenues sur la page affichage.php
+            xhr.open("GET", "json_exo.php", true);
+            // si l'état de la page a changé
+            xhr.onreadystatechange = function(){
+                // xhr.responseText permet de recuperer l'information qui se trouve dans la page affichage.php
+                let json = JSON.parse(xhr.responseText)
+                console.log(json);
+                affiche.innerHTML = "je m'appelle "+json.prenom+" j'étudie à "+json.ecole+" et j'habite "+json.ville;
+            }
+            // l'envoie de la requête au serveur
+            xhr.send();
+            
+        }
+        // console.log(soumission);
+    </script>
+</body>
+</html>

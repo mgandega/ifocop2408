@@ -11,7 +11,14 @@ creer deux pages:
 - json_exo.php
 dans json_exo.html, créons deux div, l'une est vide et l'autre contient un bouton de soumission .
 dans json_exo.php: créons un tableau comme suit: 
-let presentation = ["prenom"=>'martin', "ville"=>"paris", "ecole"=>"ifocop"]
+$presentation = ["prenom"=>'martin', "ville"=>"paris", "ecole"=>"ifocop"]
 dès qu'on clique sur le bouton de soumission, affichons dans la 1ere div:
 je m'appelle martin, j'étudie à ifocop et j'habite paris
+
+exo3:
+créons une page select.html
+dans select.html, créons deux div, l'une contient un element de type select avec des valeurs comme suit:
+pomme,banane,poire
+ et l'autre contient un bouton de soumission .
+ dès qu'on clique sur le bouton de soumission, affichons la valeur de l'option selectionné
 
