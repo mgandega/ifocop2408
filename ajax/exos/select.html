@@ -16,9 +16,12 @@
     <div id="root"></div>
     <div>
         <select id="main">
-            <option value="pomme">pomme</option>
-            <option value="banane">banane</option>
-            <option value="poire">poire</option>
+            <option value="animaux">Animaux</option>
+            <option value="fruit">fruit</option>
+            <option value="genre">genre</option>
+        </select>
+        <select id="sousCategorie">
+            
         </select>
     </div>
     <!-- <div><input id="soumission" type="submit" value="valider"  /></div> -->
@@ -30,22 +33,42 @@
         affiche.addEventListener("change",affichage)
 
         // Affichage avec la methode GET
+        // function affichage(){
+        //     // récupération de la valeur selectionnée
+        //     let choix = affiche.options[affiche.selectedIndex].value;
+        //     // on instancie la classe XMLHttpRequest
+        //     let xhr = new XMLHttpRequest();
+        //     // open permet de récuperer les infos contenues sur la page affichage.php 
+        //     xhr.open("GET", "select.php?valeur="+choix, true);
+
+        //     // l'élément vide
+        //     let root = document.getElementById("root");
+        //     // si l'état de la page a changé
+        //     xhr.onreadystatechange = function(){
+        //       root.innerHTML = xhr.responseText;
+        //     }
+        //     // l'envoie de la requête au serveur
+        //     xhr.send();
+            
+        // }
+        // Affichage avec la methode POST
         function affichage(){
             // récupération de la valeur selectionnée
             let choix = affiche.options[affiche.selectedIndex].value;
             // on instancie la classe XMLHttpRequest
             let xhr = new XMLHttpRequest();
             // open permet de récuperer les infos contenues sur la page affichage.php 
-            xhr.open("GET", "select.php?valeur="+choix, true);
+            xhr.open("POST", "select.php", true);
 
             // l'élément vide
             let root = document.getElementById("root");
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             // si l'état de la page a changé
             xhr.onreadystatechange = function(){
               root.innerHTML = xhr.responseText;
             }
             // l'envoie de la requête au serveur
-            xhr.send();
+            xhr.send("valeur="+choix);
             
         }
 

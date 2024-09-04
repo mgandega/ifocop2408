@@ -21,6 +21,7 @@
             // open permet de récuperer les infos contenues sur la page affichage.php 
             xhr.open("POST", "affichage.php", true);
             // si l'état de la page a changé
+            // avec la methode POST, il faut jamais oublié de mettre ceci:xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function(){
                 // si la réponse est compléte et que le status est égal à 200 (succès)

@@ -22,3 +22,6 @@ pomme,banane,poire
  et l'autre contient un bouton de soumission .
  dès qu'on clique sur le bouton de soumission, affichons la valeur de l'option selectionné
 
+ exo4:
+ faire de sorte que si on clique sur une option dans la 1ere div, on affichera les sous catégories correspondantes dans un select
+

@@ -1,4 +1,4 @@
 <?php 
-if(isset($_GET['valeur'])){
-    echo $_GET['valeur'];
+if(isset($_POST['valeur'])){
+    echo $_POST['valeur'];
 }
