@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .beaute{
+            color: white;
+            background-color: green;
+            width: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <div>
+        <select id="main">
+            <option value="pomme">pomme</option>
+            <option value="banane">banane</option>
+            <option value="poire">poire</option>
+        </select>
+    </div>
+    <!-- <div><input id="soumission" type="submit" value="valider"  /></div> -->
+
+    <script>
+        // récupération de l'élement à partir de son id
+        // let soumission = document.getElementById("soumission");
+        let affiche = document.getElementById("main");
+        affiche.addEventListener("change",affichage)
+
+        // Affichage avec la methode GET
+        function affichage(){
+            // récupération de la valeur selectionnée
+            let choix = affiche.options[affiche.selectedIndex].value;
+            // on instancie la classe XMLHttpRequest
+            let xhr = new XMLHttpRequest();
+            // open permet de récuperer les infos contenues sur la page affichage.php 
+            xhr.open("GET", "select.php?valeur="+choix, true);
+
+            // l'élément vide
+            let root = document.getElementById("root");
+            // si l'état de la page a changé
+            xhr.onreadystatechange = function(){
+              root.innerHTML = xhr.responseText;
+            }
+            // l'envoie de la requête au serveur
+            xhr.send();
+            
+        }
+
+    </script>
+</body>
+</html>
